@@ -1,75 +1,80 @@
-# React + Vite
+#  Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, responsive weather application built with React and Vite. Search for any city to get real-time weather data powered by the OpenWeatherMap API, with a dark mode toggle that persists across sessions.
 
-Currently, two official plugins are available:
+##  Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  **City Search** — Look up current weather for any city worldwide
+-  **Weather Details** — Displays temperature, feels like, humidity, wind speed, and min/max temps
+-  **Dark Mode** — Toggle between light and dark themes, with preference saved to localStorage
+-  **Error Handling** — Friendly messages for invalid cities, bad API keys, and network errors
+-  **Fast & Lightweight** — Built with Vite for instant HMR during development
 
-## React Compiler
+##  Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/)
+- [Vite 7](https://vite.dev/)
+- [Tailwind CSS 3](https://tailwindcss.com/)
+- [OpenWeatherMap API](https://openweathermap.org/api)
 
-## Expanding the ESLint configuration
+##  Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
 
-dark mode implementation
-Here's the simplest way to add dark mode toggle:
+- An [OpenWeatherMap API key](https://home.openweathermap.org/api_keys) (free tier works)
 
-1. First update `tailwind.config.js`:
+### Installation
 
-module.exports = {
-  content: ["./src/**/*.{html,js}"],
-  darkMode: 'class', // Add this line
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/weather_app.git
+   cd weather_app
+   ```
 
-2. Modify `WeatherApp.js` to add toggle button:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-import { useState, useEffect } from "react"; // Add useEffect
+3. **Set up environment variables**
 
-const WeatherApp = () => {
-  const [info, setInfo] = useState({});
-  const [isDark, setIsDark] = useState(false); // Add dark mode state
+   Create a `.env` file in the root of the project:
+   ```env
+   VITE_WEATHER_API_KEY=your_api_key_here
+   ```
 
-  // Add dark mode toggle handler
-  const toggleDarkMode = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-  return (
-    <div className={`flex items-center flex-col min-h-screen ${isDark ? 'dark' : ''}`}>
-      <button 
-        onClick={toggleDarkMode}
-        className="mt-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
-      >
-        {isDark ? '☀️ Light' : '🌙 Dark'}
-      </button>
-      <SearchBox setInfo={setInfo} />
-      <WeatherCard info={info} />
-    </div>
-  );
-};
+   The app will be available at `http://localhost:5173`
 
-3. Update components to use dark-aware backgrounds:
+## Scripts
 
-In `SearchBox.jsx`:
-<div className="search-container p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+| Command | Description |
+|---|---|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
 
-In `WeatherCard.js`:
-<div className="weather-card-container p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md mt-4">
+## Project Structure
 
-Explanation:
-- Added `darkMode: 'class'` in config to enable class-based dark mode
-- Created a toggle button that adds/removes 'dark' class from HTML element
-- Added dark mode variants to background colors using `dark:bg-{color}`
-- The existing text color classes (`dark:text-white`) will automatically work with dark mode
-- Added simple emoji toggle button with conditional rendering
+```
+src/
+├── components/
+│   ├── Search.jsx        # City search input
+│   └── WeatherCard.jsx   # Weather data display
+├── utils/
+│   └── constants.js      # API key & base URL
+├── App.jsx               # Root component with dark mode logic
+└── index.css             # Global styles
+```
 
-All existing dark mode styles in your components (like `dark:text-white`) will now work with the toggle. The background colors will switch between light and dark themes when toggling.
+## Environment Variables
+
+| Variable | Description |
+|---|---|
+| `VITE_WEATHER_API_KEY` | Your OpenWeatherMap API key |
+
